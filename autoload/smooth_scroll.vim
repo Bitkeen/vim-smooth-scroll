@@ -16,12 +16,16 @@ set cpo&vim
 
 " Scroll the screen up
 function! smooth_scroll#up(dist, duration, speed)
-  call s:smooth_scroll('u', a:dist, a:duration, a:speed)
+  if line('.') != 1
+    call s:smooth_scroll('u', a:dist, a:duration, a:speed)
+  endif
 endfunction
 
 " Scroll the screen down
 function! smooth_scroll#down(dist, duration, speed)
-  call s:smooth_scroll('d', a:dist, a:duration, a:speed)
+  if line('.') != line('$')
+    call s:smooth_scroll('d', a:dist, a:duration, a:speed)
+  endif
 endfunction
 
 " ==============================================================================
@@ -57,4 +61,3 @@ function! s:get_ms_since(time)
   let cost = split(reltimestr(reltime(a:time)), '\.')
   return str2nr(cost[0])*1000 + str2nr(cost[1])/1000.0
 endfunction
-
